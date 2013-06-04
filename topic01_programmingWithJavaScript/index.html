@@ -1,0 +1,390 @@
+<html>
+	<head>
+		<title>Chapter 1 - Introduction to JavaScript</title>
+		<style>
+			h1 {text-align: center}
+		</style>
+	</head>
+	<body>
+		<h1 id="top">Chapter 1 - Introduction to JavaScript</h1>
+		<dl>
+			<dt><h2 id="myths">1.1 - JavaScript Myths</h2><dt>
+			<dd><p>Debunk common and persistent myths about JavaScript</p></dd>
+			<dd><h3 id="notJava">1.1.1 - JavaScript is not Java</h3></dd>
+			<dd>
+				<dl>
+					<dt>JavaScript is not a simplified version of Java.</dt>
+					<dd><br />Similarity of names marketing ploy (originally LiveScript).</dd>
+					<dd><br />JavaScript and Java do work well together.</dd>
+					<dd><br />JavaScript can control browser behavior and content but can't draw graphics or perform networking.</dd>
+					<dd><br />Client-side JS can interact with and control Java applets embedded in web page.</dd>
+					<dd><br />Java has no control over browser as a whole but can do graphics, networking, and multithreading.</dd>
+				</dl>
+			</dd>
+			<dd><h3 id="notSimple">1.1.2 - JavaScript is Not Simple</h3></dd>
+
+			<dt><h2 id="versions">1.2 - Versions of JavaScript</h2></dt>
+			<dt><h2 id="clientside">1.3 - Client-Side JavaScript</h2></dt>
+			<dt><h2 id="contexts">1.4 - JavaScript in Other Contexts</h2></dt>
+			<dt><h2 id="executable">1.5 - Executable Content in Web Pages</h2></dt>
+<pre>
+	&lt;html&gt;
+		&lt;body&gt;
+			&lt;head&gt;&lt;title&gt;Factorials&lt;/title&gt;&lt;/head&gt;			
+			&lt;script language="JavaScript"&gt;
+				document.write("&lt;h2*gt;Table of Factorials&lt;/h2&gt;");
+				for(i = 1, fact = 1; i &lt; 10; i++, fact *= i) 
+				{
+					// document.write method dynamically outputs HTML text parsed & displayed by browser
+					// "Method" is OO term for function/procedure
+					document.write(i + "! = " + fact);
+					document.write("&lt;br&gt;");
+				}
+			&lt;/script&gt;
+		&lt;/body&gt;
+	&lt;/html&gt;
+</pre>
+		<p>
+			JS not only controls content of HTML docs but behavior as well.
+			<br />JS program can respond when value entered in input field or image clicked in document.
+			<br />JS defines <i>event handlers</i>, pieces of JS code executed when particular event occurs (i.e. button click)
+			<br />Example of an HTML form w/ event handler executed in response to button click:
+<pre>
+	&lt;form&gt;
+		&lt;input 	type="button"
+			value="Click here"
+			onclick="alert('You clicked the button');"&gt;
+	&lt;/form&gt;
+</pre>
+			<br />onclick attribute originally Netscape extension added to HTML specifically for client-side JS.
+			<br />This and other event handler attributes standardized in HTML 4.0
+			<br />All JS event handlers defined with HTML attributes.
+			<br />Value of onclick attribute is JS code string executed when button clicked.
+			<br />onclick event handler calls alert() function, which pops up dialog box displaying message
+		</P>
+		</dl>
+		<h2 id="csJSfeatures">1.6 - Client-Side JavaScript Features</h2>
+		<h3 id="appearance">1.6.1 - Control DocumentAppearance and Content</h3>
+		<h3 id="browser">1.6.2 - Control the Browser</h3>
+		<h3 id="forms">1.6.3 - Interact with HTML Forms</h3>
+		<h3 id="user">1.6.4 - Interact with the User</h3>
+		<h3 id="cookies">1.6.5 - Read and Write Client State with Cookies</h3>
+		<h3 id="more">1.6.6 - Still More Features</h3>
+		<h3 id="cant">1.6.7 - What JavaScript Can't Do</h3>
+		<h2 id="security">1.7 - JavaScript Security</h2>	
+		<h2 id="example">1.8 - Example: Computing Loan Payments with JavaScript</h2>
+		<h2 id="rest">1.9 - Using the Rest of the Book</h2>
+		<h2 id="exploring">1.10 - Exploring JavaScript</h2>
+<pre>
+	// Display Fibonacci numbers
+	&lt;script&gt;
+	document.write("&lt;h2&gt;Table of Fibonacci Numbers&lt;/h2&gt;");
+	for (i=0, j=1, k=0, fib =0; i &lt; 50; i++, fib=j+k, j=k, k=fib)
+	{
+		document.write("Fibonacci (" + i + ") = " + fib);
+		document.write("&lt;br&gt;");
+	}
+	&lt;/script&gt;
+	
+	// Alternatively, the alert() method can be used to display plain-text output in a dialog box:
+	// alert("Fibonacci (" + i + ") = " + fib);
+
+	// For simple JavaScript experiments, &lt;html&gt;, &lt;head&gt;, and &lt;body&gt; tags can be omitted
+
+	// The javascript: URL pseudoporotocol can be used to evaluate JavaScript expressions and return the result
+		// Statements must be seperated using semicolons (;) 
+</pre>
+		<h1 id="lexical">Chapter 2 - Lexical Structure</h1>
+		<h2 id="character">2.1 - Character Set</h2>
+		<p>
+			JS uses Unicode char set as it can represent virtually every written language in common use.
+			<br />Each character is represented as 2 bytes as opposed to 8 bits in other languages.
+		</p>
+		<h2 id="case">2.2 - Case Sensitivity</h2>
+		<p>JS is a case-sensitive language.</p>
+		<h2 id="whitespace">2.3 - Whitespace and Line Breaks</h2>
+		<p>JS ignores spaces, tabs, and newlines between tokens (except those in strings/regular expression literals.</p>
+		<h2 id="semicolons">2.4 - Optional Semicolons</h2>
+		<p>Semicolons may be omitted if each statement is placed on a seperate line:</p>
+		<code>
+			a = 3;
+			a = 4;
+		</code>
+		<p>is equivalent to:</p>
+		<code>
+			a = 3
+			a = 4
+		</code>
+		<p>However, for the following statement:</p>
+		<code>
+			a = 3; b = 4;
+		</code>
+		<p>
+			the first semicolon is required. It is a good programming practice to use semicolons liberally
+			<br />JS will insert semicolons when it thinks one was omitted if lines of code are inappropriately broken:
+			</p> 
+		<code>
+			return
+			true;
+		</code>
+		<p>will be interpreted as:</p>
+		<code>
+			return;
+			true;
+		</code>
+		<h2 id="comments">2.5 - Comments</h2>	
+		<p>C/C++ style comments (// and /* */) are supported in JS.</p>
+		<h2 id="literals">2.6 - Literals</h2>
+		<p>
+			<i>Literals</i> are data values that appear directly in the program, and include the following:
+			<br />Integrals, floats, "strings" or 'strings', bool, regular expressions (/javascript/gi), and null.
+			<br />Expressions that serve as array and object literals are supported in ECMAScript v3:
+			</p>
+			<code>{ x:1, y:2 }<br />[1,2,3,4,5]</code>
+		<h2 id="identifiers">2.7 - Identifiers</h2>
+		<p>
+			Follows same rules as other languages:<br />Must start with letter, underscore, or dollar (but avoid these)
+			<br />ECMAScript v3 can contain letters and digits from complete Unicode char set.
+			<br />It also allows escape characters (\u03c0)
+		</p>
+		<h2 id="reserved">2.8 - Reserved Keywords</h2>
+		<p>
+			Reserved JavaScript keywords: 
+			<br />break, case, catch, continue, default, delete, do, else, false, finally, for, function, if, in, instanceof, new, null, return, switch, this, throw, true, try, typeof, var, void, while, with
+		</p>
+		<p>
+			<br />Words reserved for ECMA extensions: 
+			<br />abstract, boolean, bye, char, class, const, debugger, double, enum, export, extends, final, float, goto, implements, import, int, interface, long, native, package, private, protected, public, short, static, super, synchronized, throws, transient, volatile
+		</p>
+		<p>
+			ECMAScript v4 potential reserved words:
+			<br />as, is, namespace, use
+		</p>
+		<p>
+			Other identifiers to avoid (global variables and predefined functions) in ECMAScript v3:
+			<br />arguments, Array, Boolean, Date, decodeURI, decodeURIComponent, encodeURI, Error, escape, eval, EvalError, Function, Infinity, isFinite, isNaN, Math, NaN, Number, Object, parseFloat, parseInt, RangeError, ReferenceError, RegExp, String, SyntaxError, TypeError, undefined, unescape, URIError
+		</p>
+		<h1 id="data">Chapter3 - Data types and Values</h1>
+		<p>
+			Primitive data types supported:
+			<br />numbers, strings, bool
+		</p>
+			Trivial data types (single value) supported:
+			<br />null, undefined
+		</p>
+		<p>
+			Supports composite data type:
+			<br />object
+			<br />An object represents a collection of values (primitive or composite).
+			<br />Objects can represent unordered collection of named values or ordered collection of numbered values (arrays).
+		</p>
+		<p>
+			Supports <i>function</i> object:
+			<br />an object with executed code associated
+			<br />Functions are <i>invoked</i> to perform an operation.
+		</p>
+		<p>
+			Classes of objects supported:
+			<br />Date class: defines objects that represent dates
+			<br />RegExp class: defines objects that represent regular expressions
+			<br />Error class: defines objects that represent syntax and runtime errors
+		</p>
+		<h2 id="numbers">3.1 - Numbers</h2>
+		<p>
+			No distinction made between integer and float values, all numbers represented as float.
+			<br />Numbers represented using 64-bit floating-point format defined by IEEE 754 standard.
+			<br />Range: +/-5x10^-324 to +/-1.7976931348623157x10^308 (double type range).
+		</p>
+		<h3 id="integer">3.1.1 - Integer Literals</h3>
+		<p>
+			Values between 9007199254740992 (-2^53) and  9007199254740992 (2^53) inclusive.
+		</p>
+		<p>
+			Certain integer operations (i.e. bitwise operators) performed on 32-bit ints, -2147483648 (-2^31) to 2147483647 (2^31-1
+		</p>
+		<h3 id="Hexadecimal and Octal Literals">3.1.2 - Hexadecimal and Octal Literals</h3>
+		<p>Hexadecimal (base-16) values recognized.</p>
+		<code>
+			0xff	// 15 * 16 + 15 = 255 (base 10)
+			<br />0xCAFE911
+		</code>
+		<p>
+			ECMAScript standard does not support octal (base-8) format, but some implementations of JS do.
+		</p>
+		<code>
+			0377	// 3 * 64 + 7 * 8 + 7 = 255 (base 10)
+		</code>
+		<h3 id="float">3.1.3 - Floating-Point Literals</h3>
+		<p>
+			floats are real numbers/values: integral.fractional
+			<br />floats can be represented using exponential notation: [integral][.fractional](E|e)[(+|-)]integerExponent]
+			<br />Only 18,437,736,874,454,810,627 real numbers can be represented <i>exactly</i> in JS
+		</p>
+		<h3 id="working">3.1.4 - Working with Numbers</h3>
+		<p>
+			Basic arithemetic operators: + - * /
+		</p>
+		<p>
+			Mathematical functions provided by Math object:
+		</p>
+		<code>
+			sine_of_x = Math.sin(x);
+
+			hypot = Math.sqrt(x * x + y * y);
+		</code>
+		<p>The toString() method converts integers to strings using radix (base: 2-36) specified by argument</p>
+		<code>
+			//	Binary Conversion
+			var x = 33;
+			var y = x.toString(2);	//	y is "100001"
+
+			//	When invoking toString() method on number literal, parentheses can be used to distinguish scope resolution operator from decimal
+			var y = (257).toString(0x10);	//	y is "101"
+		</code>
+		<h3 id="special">3.1.5 - Special Numeric Values</h3>
+		<p>
+			Infinity is a special value representing floating-point values larger than the largest representable finite number
+			<br />-Infinity (negative infinity) represents floats smaller than the smallest possible finite number
+		</p>
+		<p>
+			NaN (not-a-number) is an undefined result or error (such as 0 / 0)
+			<br />NaN does not compare equal to any number, including itself
+			<br />It is therefore tested with a special function isNaN()
+			<br />isFinite() tests whether a number is not NaN and not positive or negative infinity
+		</p>
+		<p>
+			Infinity - Special value to represent infinity
+			<br />NaN - Special not-a-number value
+			<br />Number.MAX_VALUE - Largest representable number
+			<br />Number.MIN_VALUE - Smallest (closest to zero) representable number
+			<br />Number.NaN - Special not-a-number value
+			<br />Number.POSITIVE_INFINITY - Special value to represent infinity
+			<br />Number.NEGATIVE_INFINITY - Special value to represent negative infinity
+		</p>
+		<h2 id="strings">3.2 - Strings</h2>
+		<p>JS does not use char, use a string instead</p>
+		<h3 id="stringliterals">3.2.1 - String Literals</h3>
+		<p>
+			Double-quote characters can be contained within single-quote delimited strings
+			<br />Single-quote characters can be contained within double quote delimited strings
+			<br />String literals must be written on a single line
+			<br />Choosing a standard of single or double quotes for JavaScript or HTML is helpful:
+		</p>
+		<p>
+			<code>
+				&lt;a href="" onclick="alert('Thank you')"&gt;Click Me&lt;/a&gt;
+			</code>
+		</p>
+		<h3 id="escape">3.2.2 - Escape Sequences in String Literals</h3>
+		<p>
+			Escape characters are used in JS as they are in other languages
+			<br />Latin-1 characters can be specified with \xXX where XX are hex digits or \XXX where XXX are octal digits between 1 and 377 (not supported by ECMAScript v3) 
+			<br />Unicode characters can be specified by \uXXXX where XXXX are hex chars
+		 	<br />Other escape sequences:
+			<br />\0 (\u0000) 
+			<br />\b (\u0008)
+			<br />\t (\u0009)
+			<br />\n (\u000A)
+			<br />\v (\u000B)
+			<br />\f (\u000C)
+			<br />\r (\u000D)
+			<br />\" (\u0022)
+			<br />\' (\u0027)
+			<br />\\ (\u005C)
+			<br />A backslash not followed by one of the above characters is ignored.
+		</p>
+		<h3 id="workingstrings">3.2.3 - Working with Strings</h3>
+		<p>
+			String concatenation supported
+			<br />JS strings and arrays 0-indexed
+			<br />Strings use object syntax for accessing properties and methods but are not objects.
+			<br />String length can be determined with length property, accessed as:<code> s.length </code>(s is a string id)
+			<br /> get last character of string s:<code> last_char = s.charAt (s.length - 1)</code>
+			<br />extract characters from string s:<code> sub = s.substring(1,4);</code>
+			<br />find position of first letter a in string s:<code> i = s.indexOf('a');</code>	
+			<br />Some implementations support reading individual characters from strings using array notation:<code> last_char = s[s.length - 1];</code> however this is not supported by ECMAScript v3 and should be avoided
+		</p>
+		<h2 id="bool">3.3 - Boolean Values</h2>
+		<p>
+			<code>true</code> or <code>false</code>, test: <code>a == 4</code>
+			<br />Although bool is distinct type instead of simulated as in C, it is easily converted to other data types and is not as pure as Java <code>boolean</code> data type.
+		</p>
+		<h2 id="functions">3.4 - Functions</h2>
+		<p>
+			<i>Function</i>: piece of executable code, user defined or predefined
+			<br />
+<pre>
+	function square(x) // x is parameter (argument)
+	{
+		return x*x;
+	}							
+</pre>
+		<br />Functions are values that can be manipulated by JS code: they can be stored in variables, arrays, and objects and they can be passed as arguments to other functions.
+		<br />When a function is assigned to a property of an object it is referred to as a <i>method</i> of that object.
+		</p>
+		<h3 id="functionliterals">3.4.1 - Function Literals</h3>
+		<p>
+			Function literals are defined in a way similar to function definitions except they need not have names:
+			<br /><code>function square(x) { return x*x; }</code>
+			<br />can be defined as
+			<br /><code>var square = function(x) { return x*x }</code>
+			<br />without a name.
+			<br />Functions defined nameless as above are sometimes called <i>lambda functions</i> in homage to LISP programming language which first allowed unnamed functions to be embedded as literal data values.
+			<br />The argument list and function body can be passed as strings to the Function() constructor:
+			<br /><code>var square = new Function("x", "return x*x;");</code>
+			<br />The above technique is often awkward and less efficient than the other ways to define a function.
+		</p>
+		<h2 id="objects">3.5 - Objects</h2>
+		<p>
+			An <i>object</i> is a collection of named values (properties or sometimes fields)
+			<br />Properties of objects are referred to as: <code>[object].[propertyName]</code>
+			<br />Examples: <code>image.width, image.height</code>	
+			<br />Object properties, like JS variables, can contain any type of data including arrays, functions, and other objects.
+			<br />e.g. <code>document.myform.button</code> in which the button property of an object is stored in the myform property of an object named document. 
+			<br />When a function value is stored in a property of an object it is called a method, the property name becoming the method name.
+			<br />The method of an object is invoked using the member access operator (.) to extract function value from object
+			<br />The function is evoked using the () syntax. Invoking the write() method of the Document object:
+			<br /><code>document.write("this is a test");</code>
+			<br />Objects can serve as associative arrays (associate arbitrary data values with arbitrary strings.
+			<br />A string containing the object property name is enclosed in brackets to access the object properties:
+			<br /><code>image["width"] image["height"]</code>
+		</p>
+		<h3 id="createobjects">3.5.1 - Creating Objects</h3>
+		<p>
+			<i>Constructor</i> functions are used to create objects
+<pre>
+	var o = new Object();
+	var now = new Date();
+	var pattern = new RegExp("\\sjava\\s", "i");
+</pre>
+			<br />Once a custom object has been created the properties can be used and set:
+<pre>
+	var point = new Object();
+	point.x=2.3;
+	point.y = -1.2;
+</pre>
+		</p>
+		<h3 id="objectliterals">3.5.2 - Object Literals</h3>
+		<p>
+			Also called object initializers, object literals contain a comma-separated list of colon-separated property/value pairs all enclosed in curly braces:
+			<br />
+<pre>
+	var point = { x:2.3, y:-1.2 };
+</pre>
+			<br />Object literals can also be nested:
+<pre>
+	var rectangle = { upperLeft: {x: 2, y: 2 },
+										lowerRight: { x: 4, y: 4 }
+									};
+</pre>
+			<br />The property values used in object literals need not be constant (can be arbitrary expressions):
+<pre>
+	var square = { upperLeft: { x:point.x, y:point.y },
+									lowerRight: { x:(point.x + side), y:(point.y + side) }};
+</pre>
+			<h2 id="arrays">3.6 - Arrays</h2>
+			<p>
+				
+			</p>
+	</body>		
+</html>
