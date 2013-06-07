@@ -18,7 +18,7 @@
 					<dd><br />JavaScript and Java do work well together.</dd>
 					<dd><br />JavaScript can control browser behavior and content but can't draw graphics or perform networking.</dd>
 					<dd><br />Client-side JS can interact with and control Java applets embedded in web page.</dd>
-					<dd><br />Java has no control over browser as a whole but can do graphics, networking, and multithreading.</dd>
+					<dd><br />Java has no control over browser as a whole but can do graphics, networking, and multithreading.</dd>	
 				</dl>
 			</dd>
 			<dd><h3 id="notSimple">1.1.2 - JavaScript is Not Simple</h3></dd>
@@ -61,7 +61,7 @@
 			<br />All JS event handlers defined with HTML attributes.
 			<br />Value of onclick attribute is JS code string executed when button clicked.
 			<br />onclick event handler calls alert() function, which pops up dialog box displaying message
-		</P>
+		</p>
 		</dl>
 		<h2 id="csJSfeatures">1.6 - Client-Side JavaScript Features</h2>
 		<h3 id="appearance">1.6.1 - Control DocumentAppearance and Content</h3>
@@ -382,9 +382,468 @@
 	var square = { upperLeft: { x:point.x, y:point.y },
 									lowerRight: { x:(point.x + side), y:(point.y + side) }};
 </pre>
-			<h2 id="arrays">3.6 - Arrays</h2>
-			<p>
-				
-			</p>
+		<h2 id="arrays">3.6 - Arrays</h2>
+		<p>
+			An indexed collection of data values.
+			<br />0 indexed.
+			<br />May contain any type of JS data: references to other arrays, objects, functions.
+			<br />Referenced by non-negative integers as opposed to associative arrays mentioned earlier.
+			<br />Multidimensional arrays not supported except as arrays of arrays.
+			<br />Elements of arrays in JS need not be of the same type as JS is an untyped language.
+		</p>
+<pre>
+	a[2]	// <i>third</i> element of array
+
+	document.images[1].width	// width property of an object stored in second element of array stored in images property of document object
+</pre>
+		<h3 id="creatingarrays">3.6.1 - Creating Arrays</h3>
+		<p>Arrays can be created with the Array() cunstructor function.</p>
+<pre>
+	var a - new Array();
+	a[0] = 1.2;
+	a[1] = "JavaScript";
+	a[2] = true;
+	a[3] = { x:1, y:3 };
+</pre>
+		<p>Arrays can be initialized by passing array elements to the Array() constructor:</p>
+<pre>
+	var a = new Array(1.2, "JavaScript", true, { x:1, y:3 });
+</pre>
+		<p>Passing a single number to Array() constructor specifies length of array. An array of 10 elements:
+<pre>
+	var a - new Array(10);
+</pre>
+		<h3 id="arrayliterals">3.6.2 - Array Literals</h3>
+		<p>A comma-separated list of values contained in square brackets:</p>
+<pre>
+	var a = [1.2, "JavaScript", true, { x:1, y:3 }];
+</pre>
+		<p>Array literals can be nested:</p>
+<pre>
+	var matrix = [[1,2,2], [4,5,6], [7,8,9]];
+</pre>
+		<p>The elements in array literlas (as with object literals) can be arbitrary expressions:</p>
+<pre>
+	var base = 1024;	// Constant
+	var table = [base, base+1, base+2, base+3];
+</pre>
+		<p>Undefined elements can be included in an array literal. An array of five elements:</p>
+<pre>
+	var sparseArray = [1,,,,,,5];
+</pre>
+		<h2 id="null">3.7 - null</h2>
+		<p>
+			Special keyword value indicating no value.
+			<br />Considered special value of object type: a value that represents no object.
+			<br />null in JS not the same as 0 as in C languages, although sometimes it may be converted as such.
+		</p>
+		<h2 id="undefined">3.8 - Undefined</h2>
+		<p>
+			A variable that has been declared but never assigned a value or nonexistant object property.
+			<br />Not the same as null, however...
+			<br />The equality operator (==) considers them to be equal:
+		</p>
+<pre>
+	my.prop == null
+	// true if my.prop property does not exist or contains value <i>null</i>
+</pre>
+		<p>
+			<i>null</i> and <i>undefined</i> can be distinguished using the === identity operator or <i>typeof</i> operator
+			<br />Unlike <i>null</i>, <i>undefined</i> is not a reserved word in JS.
+			<br />ECMAScript V3 specifies always global variable named <i>undefined</i> with initial value of undefined
+			<br />undefined can be treated as a keyword in a conforming implementation as long as a value is not assigned
+			<br />If unsure whether implementation has <i>undefined</i> variable, it can be declared to assure <i>undefined</i>value:
+<pre>
+	var undefined;
+</pre>
+		<p>The void operator provides another way to obtain the <i>undefined</i> value.</p>
+		<h2 id="dateobject">3.9 - The Date Object</h2>
+		<p>
+			Date and time values are not fundamental types as those previously described.
+			<br />Date object created with <code>new</code> operator and <code>Date()</code> constrcutor:
+		</p>
+<pre>
+	var now = new Date();	// Create object holding current date and time
+	var xmas = new Date(2013, 11, 25);	// Date object representing Christmas (months zero-based, Dec. = 11)
+</pre>
+		<p>
+			Date object methods allow get and set various date/time values and convert Date to string using local or GMT time:
+		</p>
+<pre>
+	xmas.setFullYear(xmas.getFullYear() + 1);	// Change date to a different Christmas
+	var weekday = xmas.getDay();	//Christmas falls on Tuesday in 2001	
+	document.write("Today is: " + now.toLocaleString());	// Current date/time
+</pre>
+		<p>
+			Date object also defines functions (as opposed to methods which must be invoked through a Date object).
+			<br />that convert a date specified in string/numeric form to internal millisecond representation (useful for arithmetic).
+		</p>
+		<h2 id="regularexpressions">3.10 - Regular Expressions</h2>
+		<p>
+			Pattern matching and implementing serach/replace operations.
+			<br />JS adopts Perl syntax for expressing regular expressions.
+			<br />(First added in JS 1.2, standardized/extended by ECMAScript V3)
+		</p>
+		<p>
+			Represented by RegExp object, created with <code>RegExp()</code> constructor.
+			<br />Not a fundamental type: specilaized kind of object provided by conforming JS implementations
+		</p>
+		<p>
+			RegExp objects have literal syntax (unlike Date object) and can be encoded directly into JS 1.2 programs
+			<br />Text between slash pair constitutes regular expression literal
+			<br />Second slash in pair can be ollowed by one or more letters modifying meaning of pattern:
+		</p>
+<pre>
+	/^HTML/
+	/[1-0][0-9]*/
+	/\bjavascript\b/i
+</pre>
+		<h2 id="errorobjects">3.11 - Error Objects</h2>
+		<p>
+			At runtime error ocurrance JS interpreter "throws" and object of error type.
+			<br />Each error object has a <code>message</code> property containing an implementation-specific error message.
+			<br />Predefined error objects: Error, EvalError, RangeError, ReferenceError, SyntaxError, TypeError, URIError
+		</p>
+		<h2 id="primitivewrapper">3.12 - Primitive Data Type Wrapper Objects</h2>
+		<p>To operate on strings object notation is used.</p>
+<pre>
+	var s = :These are the times that tryp people's souls.";
+	var last_word = s.substring(s.lastIndexOf(" ")+1, s.length);
+</pre>
+		<p>
+			Corresponding object classes are defined for each of the three key primitive data types:
+			<br />Number, String, and Boolean classes supported along with number, string, boolean data types.
+			<br />The classes are <i>wrappers</i> around the primitive data types.
+			<br />A wrapper contains same primitive data value but also defines properties and methods used to manipulate data
+		</p>
+		<p>
+			String wrapper object internally created when string used in object context (access property/method of string)
+			<br />This string object used in place of primitive string value.
+			<br />The object has properties and methods defined, using primitive value in object context works.
+			<br />Other primitive types and corresponding wrapper objects not used in object context as often as strings
+		</p>
+		<p>
+			String object created when string used in object context transient: allows access to property/method and then reclaimed by system
+			<br /><code>s</code> is string, and length of string determined: <code>var len = s.length;</code>
+			<br /><code>s</code> remains a string, original value retained but new transient String object allowing access to <code>length</code> property.
+			<br />Transient object then discarded.
+		</p>
+		<p>To use String object explicitly in program, create nontransient object using <code>new</code> operator:</p>
+<pre>
+	var s = "hello world";	// Primitive string value
+	var S = new String("Hello World");	// A String object
+</pre>
+		<p>String object <code>S</code> can then be used as primitive data type with little distinction between the two types</p>
+		<p>String objects used as primitive type results in automatic onversion of object to transient primitive value:</p>
+<pre>
+	msg = S + '!';
+</pre>
+		<p>Primitive values and their automatically created transient objects applies to number and boolean values as well</p>
+		<h1 id="variables">Chapter 4 - Variables</h1>
+		<h2 id="variabletyping">4.1 - Variable Typing</h2>
+		<p>
+			JS is untyped: variable can hold a value of any data type
+			<br />Values are conveniently and automatically converted from one type to another
+			<br />Appending a number to a string will convert the number to a string to be appended
+		</p>
+		<h2 id="variabledeclaration">4.2 - Variable Declaration</h2>
+		<p>
+			Variables must be declared with the <code>var</code> keyword before being used: <code>var i; var sum;</code>
+			<br />Multiple variables can be declared with same <code>var</code> keyword: <code>var i, sum;</code>
+			<br />Variable delcartion can be combined with variable initialization: <code>var message = "hello";</code>
+			<br /><code>var i = 0, j = 0, k = 0;</code>
+			<br />Variables that are declared but not initialized contain <code>undefined</code> value
+			<br />Variables declared with <code>var</code> are <i>permanent</i> and will produce an error if <code>delete</code> used
+		</p>
+		<h3 id="repeatedomitted">4.2.1 - Repeated and Omitted Declarations</h3>
+		<p>
+			An error will result from attempting to read the value of an undeclared variable. 
+			<br />A variable can be declared more than once with the <code>var</code> statement.
+			<br />Variables will be implicitly declared if a value is assigned to an undeclared variable. 
+			<br />Implicitly declared variables are created as global variables even within the body of a function.
+			<br />The <code>var</code> statement must be used to create a local variable.
+		</p>
+		<h2 id="variablescope">4.3 - Variable Scope</h2>
+		<p>
+			Scope of a variable is the region of program in which it is defined.
+			<br />Global variables have global scope. 
+			<br />variables declared within a function are defined only within the function body, and are local variables with local scope.
+			<br />Function parameters count as local variables and are defined only within the body of the function
+		</p>
+		<p>
+			A local variable takes precedence over a global variable within the body of a function.
+			<br />Declaring a local variable with same name as a global variable will hide the global variable.
+			<br />Function defintions can be nested each with their own scope, resulting in nested layers of local scope:
+		</p>
+<pre>
+	var scope = "global scope";	// A global variable
+	function checkscope() 
+	{
+		var scope = "local scope";	// A local variable
+		function nested() 
+		{
+			var scope = "nested scope";	// A nested scope of local
+			document.write(scope);	// Prints "nested scope"
+		}
+		nested();
+	}
+	checkscope();
+</pre>
+		<h3 id="noblock">4.3.1 - No Block Scope</h3>
+		<p>
+			All variables declared in a function are defined <i>throughout</i> the function as there is no block-level scope.
+			<br />Take caution when used to using block-scope variables such as in <code>for</code> loops, etc.
+		</p>
+<pre>
+	var scope = "global";
+	function f() 
+	{
+		alert(scope);		// Displays "undefined", not "global"
+		var scope = "local";	// Variable initialized here but defined everywhere
+		alert(scope);		// Displays "local"
+	}
+	f();
+</pre>
+		<p>The first alert displays "undefined" because in the var scope is defined throughout function but has not yet been initialized</p>
+		<h3 id="undefinedvsassigned">4.3.2 - Undefined Versus Unassigned</h3>
+		<p>
+			There are two types of "undefined" variables: those never declared, and those declared with no value assignment.
+			<br />Those with no value assignment should be though of as "unassigned", though they have a <code>undefined</code> value
+			<br />Those never declared will produce a runtime error if an attempt is made to read their value
+		</p>
+		<h2 id="primitivereferencetypes">4.4 - Primitive Types and Reference Types</h2>
+		<p>
+			Primitive types: numbers, boolean values, <code>null</code>, undefined types
+			<br />Reference types: objects, arrays, functions
+			<br />Primitive types havea  fixed size in memory: number = 8b, boolean = 1B
+			<br />Reference types do not havea  fixed size, therefore values cannot be stored directly in 8 bytes of memory
+			<br />Variable stores a <i>reference</i> to the value, usually some form of pointer or memory address.
+			<br />It is not the data value itself, but tells the variable where to look to find the value.
+		</p>
+<pre>
+	var a = [1,2,3];	// Initialize variable to <i>refer</i> to array (reference to array assigned, not array itself)
+	var b = a;		// Copy variable's value to new variable (create new reference)
+	a[0] = 99;		// Modify array using original reference
+	alert(b);		// Display changed array [99,2,3] using new reference
+</pre>
+		<p>
+			Variables hold the actual value of primitive types but hold references to values of reference type.
+			<br />Strings are an unusual case: they are <i>immutable</i> as there is no way to change their contents.
+		</p>
+		<h2 id="gargabe">4.5 - Garbage Collection</h2>
+		<p>
+			Storage for strings, objects, and arrays allocated dynamically when size known.
+			<br />Memory must eventually freed after dynamic allocation, JS relies on <i>garbage collection</i> to do this
+			<br />This is unlike C/C++ in which memory must be manually freed (onerous and often source of bugs)
+			<br />JS interpreter detects when objects will not longer be used by the program (object unreachable).
+		</p>
+		<h2 id="variablesasproperties">4.6 - Variables as Properties</h2>
+		<p>Variables in JS are fundamentally the same as object properties</p>
+		<h3 id="globalobject">4.6.1 - The Global Object</h3>
+		<p>
+			The JS interpreter creates a <i>global object</i> before executing any code, the properties of which are the global variables of JS programs.
+			<br />Declaration of global JS variables is defining the properties of the global object
+		</p>
+		<p>
+			Global object initialized by JS interpreter with properties referring to predefined values and functions.
+			<br />These properties include <code>Infinity</code>, <code>parseInt()</code>, and <code>Math</code>.
+			<br />In top-level code (outside of a function), the keyword <code>this</code> refers to the global object.
+			<br /><code>this</code> has a different meaning within functions
+		</p>
+		<p>
+			In client-side JS the Window object serves as global object for all JS code within browser window it represents
+			<br />Global Window object has self-referential <code>window</code> property that can be used instead of <code>this</code>
+			<br />Window object defines core global properties: <code>parseInt()</code> and <code>Math</code> and global client-side properties: <code>navigator</code> and <code>screen</code>
+		</p>
+		<h3 id="callobject">4.6.2 - Local variables: The Call Object</h3>
+		<p>
+			Local variables are properties of an object known as the <i>call object</i>.
+			<br />The call object has a shorter life than global object but serves the same purpose.
+			<br />Funciton arguments and local variables stores as properties of call object while funciton body executes
+			<br />Use of a separate object for local variables allows JS to keep global variables from being overwritten by local variables with same name
+		</p>
+		<h3 id="executioncontexts">4.6.3 - JavaScript Execution Contexts</h3>
+		<p>
+			An <i>execution context</i> is created when the JS interpreter begins to execute a function.
+			<br />The object in which variables are defined is an important part of this context.
+			<br />JS code not in a function runs in an execution context that uses the global object for variable definitions.
+			<br />Every JS function runs in its own unique execution context with its own call object in which local variables are defined.
+		</p>
+		<p>
+			JS implementations may allow multiple global execution contexts with a <i>different</i> global context.
+			<br />Each browser window or each frame defines a separate global execution context, each with its own global object.
+			<br />These client-side global objects have properties linking one another.
+			<br />This can be demonstrated with a reference to another frame using <code>parent.frames[1]</code>
+			<br />The frame described above can have a global variable <code>x</code> referenced by the expression <code>parent.frames[0].x</code> in the second frame. 
+			<br />Scripts can run in different global execution contexts and they can refer to each other.
+			<br />A security consideration with personal data and foreign scripts in seperate frames will be discussed later.
+		</p>
+		<h2 id="variablescoperedux">4.7 - Variable Scope Revisited</h2>
+		<p>
+			Every JS execution context has a <i>scope chain</i> associated with it: a list or chain of objects. 
+			<br />The first object in a chain is analyzed first when JS code looks up the value of a variable <code>x</code>(<i>variable name resolution</i>
+			<br />If the first object has a property named <code>x</code> the value of that property is used.
+			<br />If not, the next object in the chain is searched for the property, ad nauseum.
+		</p>
+		<p>
+			In top-level code the scope chain consists of a single object: the global object.
+			<br />All variables are looked up in the global object, and if it doesn't exist, it is undefined.
+			<br />In a function the scope chain consists of two objects: the function's call object and the global object.
+			<br />Variable reference in a function checks call object (local scope) first, then the global object (global scope).
+			<br />A nested function has three or more objects in its scope chain.
+		</p>
+		<h1 id="expressionsoperators">Chapter 5 - Expressions and Operators</h1>
+		<p>
+			An expression is a phrase of JS that an interpreter can evaluate to produce a value (literals and variable names).
+			<br />Literals: numeric, string, boolean, null, regular expression, object, array, function
+			<br />The value of a literal expression is the literal value itself.
+			<br />The value of a variable expression is the value the variable contains or the value to which it refers.
+		</p>
+		<h2 id="operators">5.2 - Operator Overview</h2>
+		<h3 id="operandnumber">5.2.1 - Number of Operands</h3>
+		<p>Ternary operator <code>?:</code> combines the value of three expressions into a single expression</p>
+		<h3 id="operandtypes">5.2.2 - Types of Operands</h3>
+		<p>
+			Although strings cannot be multiplied (<code>"a"*"b"</code> illegal) JS will convert to appropriate type when possible:
+			<br /><code>"3"*"5"</code> is legal and will evaluate to the number <code>15</code> (not the string<code>"15"</code>
+			<br />When <code>+</code> operator passed a string and a number, the number will be converted to a string and concatenated
+			<br /><i>lvalue</i> is a historical term meaning "an expression that can legally appear on the lefthand side of an assignment expression"
+			<br />lvalues: variables, properties of objects, elements of arrays
+			<br />ECMAScript specification allows built-in functions to return lvalues (but none are defined)
+		<h3 id="operatorprecedence">5.2.3 - Operator Precedence</h3>
+		<p>Assignment has very low precedence. Parentheses to override operator precedence.</p>
+		<h3 id="operatorassociativity">5.2.4 - Operator Associativity</h3>
+		<p>Unary, assignment, and ternary conditional operators have right-to-left associativity</p>
+		<h2 id="arithmeticoperators">5.3 - Arithmetic Operators</h2>
+		<p>Object operands are converted to numbers or strings that can be added or concatenated, performed by the <code>valueOf()</code>  method and/or the <code>toString()</code> method of the object.
+			<br />Division: Division by integers yields a float (all numbers are converted to float)
+			<br />Division by zero yields positive/negative infinity. <code>0/0</code> evaluates to <code>NaN</code>
+		</p>
+		<h2 id="equalityoperators">5.2 - Equality Operators</h2>
+		<p>
+			The identity operator (===) checks if two operands are identical (strict definition of sameness).
+			<br />The equality operator (==) checks whether operands are equal (relaxed definition of sameness).
+			<br />Numbers, strings, boolean values compared <i>by value</i>.
+			<br />Objects, arrays, functions compared <i>by reference</i>: equal only if they refer to the same object.
+			<br />Two separate arrays are never equal or identical, even if they contain equal/identical elements.
+			<br />Testing two distinct objects or arrays for same properties or elements, respectively, requires checking properties or elements individually.
+			<br />
+		<ul>Testing for identical values using <code>===</code>
+			<li>Different types are not identical
+			<li>Identical number values are identical unless <code>NaN (NaN !== NaN)</code>. Use <code>NaN()</code> function to test.
+			<li>Strings with identical characters in identical positions are identical.
+			<li>Equivalent boolean values are identical
+			<li>Identical if refer to same object, array, function. Objects/arrays with identical properties/elements not identical.
+			<li>If both values <code>null</code> or <code>undefined</code> they are identical. 
+		</ul>
+		<ul>Testing for equality using <code>==</code>
+			<li>Can be of different types: 
+				<ul>
+					<li>If <code>null</code> and <code>undefined</code>, they are equal.
+					<li>Convert string to number when comparing to a number
+					<li>Convert bool to number to compare to number
+					<li>Convert objects to primitive types to compare to string (<code>toString()</code> method or <code>valueOf()</code> method
+				</ul>
+		</ul>
+		<h4 id="netscape">5.4.1.1 - Equality and inequality in Netscape</h4>
+		<p>Never use <code>language="JavaScript1.2"</code> attribute to embed client-side JS code in Netscape, as the equality/nonequality operators behave as identity/non-identity operators.</p>
+		<h3 id="inequalitynonidentity">5.4.2 - Inequality (!=) and Non-Identity (!==)</h3>
+		<h2 id="relationaloperators">5.5 - Relational Operators</h2>
+		<h3 id="comparison">5.5.1 - Comparison Operators</h3>
+		<p>The <code>String.localeCompare()</code> method takes locale-specific defintions of "alphabetical order" into account.
+		<p>Strings can be converted in case using <code>String.toLowerCase()</code> or <code>String.toUpperCase()</code>.
+		<h3 id="inoperator">5.5.2 - The in Operator</h3>
+		<p>
+			The <code>in</code> operators expects a lefhand operand that is or can be converted to a string.
+			<br />Expects righthand operand that is an object or array.
+			<br />Evaluates to <code>true</code> if lefhand values is name of property of righthand object.
+		</p>
+<pre>
+	var point = { x:1, y:1 };		// Define an object
+	var has_x_coord = "x" in point;		// Evaluates to true
+	var has_y_coord = "y" in point;		// Evaluates to true
+	var has_z_coord = "z" in point;		// Evaluates to false; not a 3-D point
+	var ts = "toString" in point;		// Inherited property; evaluates to true
+</pre>
+		<h3 id="instance">5.5.3 - The instance Operator</h3>
+		<p>
+			Expects a lefhand operand: object. Expects righthand operand: name of class of objects.
+			<br />True if lefhand object instance of righthand class. False otherwise.
+			<br />Classes of objects defined by constructor function used to initialize them.
+			<br />Righthand operator of <code>instanceof</code> should be name of constructor function.
+			<br />All objects are instances of <code>Object</code>
+		</p>
+<pre>
+	var d = new Date();	// Create a new object with the Date() constructor
+	d instanceof Date;	// Evaluates to true; d was created with Date()
+	d instanceof Object;	// Evaluates to true; all objects are instances of Object
+	d instanceof Number;	// Evaluates to false; d is not a Number object
+	var a = [1, 2, 3];	// Create an array with array literal syntax
+	a instanceof Array;	// Evaluates to true; a is an array
+	a instanceof Object;	// Evaluates to true; all arrays are objects
+	a instaceof RegExp;	// Evaluates to false; arrays are not regular expressions
+</pre>
+		<p>
+			If lefthand operand not an object or righthand operand object not a constructor of function, returns false.
+			<br />If righthand operand not an object, runtime error occurs.
+		</p>
+		<h2 id="stringoperators">5.6 - String Operators</h2>
+		<p>Strings can be compared with greater/less than/equal operators to determine order using Unicode values</p>
+		<p><code>"one" &lt; // Numeric comparison; "one" converted to NaN, result is false.</code></p>
+		<h2 id="logicaloperators">5.7 - Logical Operators</h2>
+		<h3 id="logicaland">5.7.1 - Logical AND (&&)</h3>
+		<h3 id="logicalor">5.7.2 - Logical OR (||)</h3>
+		<h3 id="logicalnot">5.7.3 - Logical NOT (!)</h3>
+		<p>Values can be converted to bool using this operator twice: <code>!!x</code>
+		<h2 id="bitwiseoperators">5.8 - Bitwise Operators</h2>
+		<p>
+			Bitwise operators require numeric operands with integer values (despite fact all JS numbers float)
+			<br />Operate on integer operands using 32-bit integer representation.
+			<br />Some (four of them) perform Boolean algebra on individual bits of operand.
+			<br />The other (three) are used to shift bits left and right.
+			<br />Return <code>NaN</code> if used with operands not int, or too large to fit in 32-bit representation in JS 1.0/1.1.
+			<br />JS 1.2/ECMAScript corece operands to 32-bit int by dropping fractional part of operand (or any bits beyond the 32nd).
+			<br />Shift operands require righthand operand between 0 and 31.
+			<br />After converting operand to 32-bit int any bits beyond 5th dropped.
+		</p>
+		<p>
+			Bitwise AND (&): Bit set in result only if bit is set in both operands, <code>0x1234 & 0x00FF</code> evaluates to <code>0x0034</code>
+			<br />Bitwise OR (|): A bit is set in the result if the corresponding bit is set in one or both of the operands: <code>9 | 10</code> evaluates to <code>11</code>
+			<br />Bitwise XOR (^): exclusive OR operation, either operand one is true, or operand two is true, but not both.
+			<br />Bitwise NOT (~): reverses all bits in the operand. Equivalent to changing sign and subtracting 1.
+			<br />Shift left (&lt;&lt;): moves all bits in 1st operand to left by number of places specified in 2nd operand.
+			<br />Shift right with sign (&gt;&gt;): moves all bits in 1st operand to right by number of places specified in 2nd operand.
+			<br />Shift right with zero fill (&gt;&gt;&gt;): Bits shifted in on the left are always zero regardless of 1st operand sign.
+		</p>
+		<h2 id="assignmentoperators">5.9 - Assignment Operators</h2>
+		<h3 id="assignmentwithoperation">5.9.1 - Assignment with Operation</h3>
+		<h2 id="miscoperators">5.10 - Miscellaneous Operators</h2>
+		<h3 id="conditionaloperator">5.10.1 - The Condiitonal Operator (?:)</h3>
+		<code>greeting = "hello " + (username != null ? username : "there");</code>
+		<p>is equivalent to</p>
+<pre>
+	greeting = "hello ";
+	if (username != null)
+		greeting += username;
+	else
+		greeting += "there";
+</pre>
+		<h3 id="typeof">5.10.2 - The typeof Operator</h3>
+		<p>Value is string indiciating data type of operand: <code>typeof i</code> or <code>typeof(i)</code>
+		<h3 id="newobject">5.10.3 - The Object Creation Operator (new)</h3>
+		<p>The <code>new</code> operators creates a new object and invokes constructor function to initialize it.</p>
+		<h3 id="delete">5.10.4 - The Delete Operator</h3>
+		<p>Attempts to delete object property or array element or variable sepcified by operand, returning <code>true</code> if successful or <code>false</code> if unsuccessful. More.
+		</p>
+		<h3 id="void">5.10.5 - The void Operator</h3>
+		<p>Discards operand value and returns <code>undefined</code>.
+		<h3 id="comma">5.10.6 - The Comma Operator</h3>
+		<h3 id="accessoperators">5.10.7 - Array and Object Access Operators ([] and .)</h3>
+		<p>More.</p>
+		<h3 id="functioncall">5.10.8 - The Function Call Operator ()</h3>
+		<h1 id="statements">Chapter 6 - Statements</h1>
+
+
+
 	</body>		
 </html>
